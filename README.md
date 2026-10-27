@@ -5,11 +5,12 @@ leave-one-centre-out (LOCO) frozen linear probes. The work is presented in two p
 tissue-structure reconstruction pretext task and compares it with stain augmentation and pathology foundation models.
 Part II develops two stronger objectives: adjacency-aware contrastive pretraining and Cross-Centre Style Mixing (CCSM).
 
-|                  |                                                                                                                                                                                                                                                                                                 |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Authors**      | Achanta Badrinath, Peesari Sathvik Reddy                                                                                                                                                                                                                                                        |
-| **Institution**  | Department of CSE (AI & ML), Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad, India                                                                                                                                                                                                |
-| **Part I paper** | _Self-Supervised Tissue-Structure Reconstruction for Cross-Center Generalization in Histopathology: A Comparison with Stain Augmentation and Foundation Models_. Accepted at the 7th International Conference on Data Engineering and Communication Technology (ICDECT 2026), publishing phase. |
+|                    |                                                                                                                                                                                                                                                                                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Authors**        | Achanta Badrinath, Peesari Sathvik Reddy                                                                                                                                                                                                                                                        |
+| **Institution**    | Department of CSE (AI & ML), Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad, India                                                                                                                                                                                                |
+| **Part II status** | Manuscript in preparation                                                                                                                                                                                                                                                                       |
+| **Part I paper**   | _Self-Supervised Tissue-Structure Reconstruction for Cross-Center Generalization in Histopathology: A Comparison with Stain Augmentation and Foundation Models_. Accepted at the 7th International Conference on Data Engineering and Communication Technology (ICDECT 2026), publishing phase. |
 
 ---
 
@@ -46,6 +47,9 @@ HED stain-augmentation baseline (Part I): 0.9884. Full tables are in the part RE
 .
 ├── README.md
 ├── LICENSE
+├── CITATION.cff
+├── requirements.txt
+├── .gitignore
 ├── Part - 1/                                  Tissue-structure reconstruction
 │   ├── README.md
 │   ├── pretraining/
@@ -102,10 +106,11 @@ HED stain-augmentation baseline (Part I): 0.9884. Full tables are in the part RE
 
 ## Environment
 
+Install the Python packages with `pip install -r requirements.txt`. The notebooks were run on Kaggle (single NVIDIA T4/P100 GPU, 12-hour sessions); no local GPU setup is required.
+
 All notebooks are standalone scripts for a single-GPU Kaggle (or Colab) session with a configuration block at the top.
-Main packages: `torch`, `torchvision`, `timm`, `transformers`, `datasets`, `kagglehub`, `scikit-learn`, `scikit-image`,
-`pandas`, `matplotlib`, `seaborn`, `Pillow`, `tqdm`. Checkpoints and cached features are passed between notebooks as
-Kaggle datasets; outputs are written to `/kaggle/working/`.
+Checkpoints and cached features are passed between notebooks as Kaggle datasets (listed in each part README);
+outputs are written to `/kaggle/working/`.
 
 ## Evaluation protocol
 

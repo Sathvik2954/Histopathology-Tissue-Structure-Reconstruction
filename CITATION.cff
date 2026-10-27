@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the Part I paper."
+title: "Cross-Centre Generalization in Histopathology: Tissue-Structure Reconstruction, Adjacency-Aware Contrastive Pretraining and Cross-Centre Style Mixing"
+type: software
+authors:
+  - family-names: Badrinath
+    given-names: Achanta
+  - family-names: Reddy
+    given-names: Peesari Sathvik
+repository-code: "https://github.com/Sathvik2954/Histopathology-Tissue-Structure-Reconstruction"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "Self-Supervised Tissue-Structure Reconstruction for Cross-Center Generalization in Histopathology: A Comparison with Stain Augmentation and Foundation Models"
+  authors:
+    - family-names: Badrinath
+      given-names: Achanta
+    - family-names: Reddy
+      given-names: Peesari Sathvik
+  collection-title: "7th International Conference on Data Engineering and Communication Technology (ICDECT)"
+  year: 2026
+  notes: "Accepted, in publication"

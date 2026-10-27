@@ -1,0 +1,16 @@
+# Python packages used by the notebooks (Kaggle runtime; Python 3.10+).
+# Versions are minimums; the notebooks were run on Kaggle's default images.
+torch>=2.0
+torchvision>=0.15
+timm>=0.9
+transformers>=4.40
+datasets>=2.18
+kagglehub>=0.2
+scikit-learn>=1.3
+scikit-image>=0.21
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+seaborn>=0.12
+Pillow>=10.0
+tqdm>=4.66

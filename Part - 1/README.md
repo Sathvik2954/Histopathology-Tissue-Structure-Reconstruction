@@ -4,6 +4,21 @@ Accepted paper: **"Self-Supervised Tissue-Structure Reconstruction for Cross-Cen
 
 A jigsaw-style pretext task recovers the spatial arrangement of nine shuffled, partly masked patches from a 3×3 tissue window. Three backbones (ResNet18, ViT-Small/16, Swin-Tiny) are pretrained this way and compared with ImageNet and random initialisation, an HED stain-augmentation baseline and three frozen pathology foundation models (Kaiko, Phikon, Lunit), using leave-one-centre-out (LOCO) evaluation on Camelyon17-WILDS.
 
+## Run order
+
+1. `pretraining/` : train a reconstruction backbone (ResNet18, ViT-Small, Swin-Tiny). Each notebook writes its best checkpoint.
+2. `main_evaluation/stain_augmentation_baseline.ipynb` : train the end-to-end stain-augmentation baseline and save its fold checkpoints.
+3. `main_evaluation/feature_extraction.ipynb` : load the reconstruction, baseline and foundation-model checkpoints and cache frozen features.
+4. `main_evaluation/linear_probe_primary_and_loco.ipynb` : fit the linear probe on the cached features (primary split and LOCO).
+5. `analysis/` : probe battery, probe versus trained head, cross-dataset transfer and explainability, all of which reuse the checkpoints.
+
+Checkpoints are passed between notebooks as Kaggle datasets, attached as notebook inputs:
+
+| Kaggle dataset                                                                                                                                                   | Contents                                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| [`peesarisathvikreddy/histopathology-reconstruction-checkpoints`](https://www.kaggle.com/datasets/peesarisathvikreddy/histopathology-reconstruction-checkpoints) | Reconstruction checkpoints (ResNet18, ViT-Small, Swin-Tiny) |
+| `stain-aug-checkpoints-partial`, `stain-aug`                                                                                                                     | Stain-augmentation baseline checkpoints                     |
+
 ## Notebooks
 
 | Folder             | Notebook                                                                                            | Purpose                                                                            |

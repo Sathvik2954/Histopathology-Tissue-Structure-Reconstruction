@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Model weights and cached features (distributed as Kaggle datasets)
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.npz
+*.safetensors
+
+# Data and outputs
+data/
+outputs/
+*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -103,17 +103,33 @@ Stain-augmentation baseline from Part I: 0.9884. On the centre-2 primary split, 
 6. Hospital decodability falls on every backbone after continued pretraining, and does not by itself predict accuracy.
 7. Attribution maps (attention rollout, Grad-CAM, centre-mass ratio) are stable across methods.
 
+## Run order
+
+1. **Pretraining.** `01_Method1_Adjacency_Pretraining/` trains Method 1 and the matched SimCLR self control, continued from the original weights. `02_Method2_CCSM_Pretraining/` trains the CCSM arms. Each writes `*_best.pt` checkpoints per backbone, arm and seed.
+2. **Evaluation.** `03_Evaluation_Frozen_Linear_Probe/` loads those checkpoints, extracts frozen features and fits the linear probe (primary split, LOCO, centre-ID). Results are saved as per-model JSON files.
+3. **Ablations.** `04_Ablations/` trains and evaluates each variant (ABL1 to ABL5) in its own notebook. ABL6 (label efficiency) consumes the ABL5 combined checkpoints together with the Method 1 and CCSM checkpoints.
+4. **Analysis.** `05_Analysis/` consumes all checkpoints: cross-dataset transfer (ABL7), probe battery (ABL8a to d) and explainability (ABL9a, b).
+
 ## Checkpoints
 
-Checkpoints are attached to Kaggle notebooks as input datasets; they are not stored in this repository.
+Checkpoints are attached to Kaggle notebooks as input datasets (or downloaded with `kagglehub`); they are not stored in this repository.
 
-| Kaggle dataset                                                                          | Contents                                                 |
-| --------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `sethu2954/adjc-kaiko-checkpoints`, `adjc-lunit-checkpoints`, `adjc-phikon-checkpoints` | Method 1 checkpoints, foundation models                  |
-| `peesarisathvikreddy/adjclv2-checkpoints`                                               | Method 1 and self checkpoints, ResNet18 / ViT-S / Swin-T |
-| `badrinathachanta/ccsm-checkpoints-1`                                                   | CCSM checkpoints, ResNet18 / ViT-S / Swin-T              |
-| `badrinathachanta/ccsm-checkpoints-2`                                                   | CCSM checkpoints, Kaiko / Lunit / Phikon                 |
-| `badrinathachanta/ablation-combined-checkpoints`                                        | Combined adjacency + CCSM, Lunit ViT-S                   |
+| Kaggle dataset                                                                                                                     | Contents                                                 | Used by       |
+| ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------- |
+| [`badrinathachanta/ccsm-checkpoints-1`](https://www.kaggle.com/datasets/badrinathachanta/ccsm-checkpoints-1)                       | CCSM checkpoints, ResNet18 / ViT-S / Swin-T              | 03b, ABL6, 05 |
+| [`badrinathachanta/ccsm-checkpoints-2`](https://www.kaggle.com/datasets/badrinathachanta/ccsm-checkpoints-2)                       | CCSM checkpoints, Kaiko / Lunit / Phikon                 | 03b, 05       |
+| [`peesarisathvikreddy/adjclv2-checkpoints`](https://www.kaggle.com/datasets/peesarisathvikreddy/adjclv2-checkpoints)               | Method 1 and self checkpoints, ResNet18 / ViT-S / Swin-T | 03a, 05       |
+| [`sethu2954/adjc-kaiko-checkpoints`](https://www.kaggle.com/datasets/sethu2954/adjc-kaiko-checkpoints)                             | Method 1 and self checkpoints, Kaiko ViT-S/16            | 03a, 05       |
+| [`sethu2954/adjc-lunit-checkpoints`](https://www.kaggle.com/datasets/sethu2954/adjc-lunit-checkpoints)                             | Method 1 and self checkpoints, Lunit ViT-S/16            | 03a, ABL6, 05 |
+| [`sethu2954/adjc-phikon-checkpoints`](https://www.kaggle.com/datasets/sethu2954/adjc-phikon-checkpoints)                           | Method 1 and self checkpoints, Phikon ViT-B/16           | 03a, 05       |
+| [`badrinathachanta/ablation-combined-checkpoints`](https://www.kaggle.com/datasets/badrinathachanta/ablation-combined-checkpoints) | Combined adjacency + CCSM (ABL5), Lunit ViT-S            | ABL6, 05      |
+
+```python
+import kagglehub
+path = kagglehub.dataset_download("badrinathachanta/ccsm-checkpoints-1")  # any slug from the table
+```
+
+`kagglehub` downloads work in interactive sessions; in committed (non-interactive) Kaggle runs, attach the datasets as inputs instead.
 
 ## Running the notebooks
 
