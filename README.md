@@ -12,7 +12,7 @@ Histopathology: Comparison with Stain Augmentation and Foundation Models"**
 | | |
 |---|---|
 | **Title** | Tissue-Structure Reconstruction for Cross-Centre Histopathology: Comparison with Stain Augmentation and Foundation Models |
-| **Authors** | Achanta Badrinath, Peesari Sathvik Reddy, Sunanda Surabattina |
+| **Authors** | Achanta Badrinath, Peesari Sathvik Reddy |
 | **Institution** | Department of CSE (AI & ML), Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad, India |
 | **Venue** | Prepared for submission to IIITCON 2026 (Track 1). Under double-blind review; do not circulate this repo to reviewers as is. |
 | **Paper** | 6-page IEEE-format paper. The PDF will be added to `docs/` after the review period. |
