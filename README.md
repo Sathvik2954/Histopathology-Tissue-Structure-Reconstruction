@@ -16,7 +16,28 @@ Histopathology: Comparison with Stain Augmentation and Foundation Models"**
 | **Institution** | Department of CSE (AI & ML), Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad, India |
 | **Venue** | Prepared for submission to IIITCON 2026 (Track 1). Under double-blind review; do not circulate this repo to reviewers as is. |
 | **Paper** | 6-page IEEE-format paper. The PDF will be added to `docs/` after the review period. |
-| **Project phase** | Part I complete (this repo). Part II planned (see Section 11). |
+| **Project phase** | Part I complete (`Part - 1/`). Part II notebooks and results summary are in [`Part - 2/`](Part%20-%202/README.md) (see Section 11). |
+
+---
+
+## Repository layout
+
+```
+Major Project/
+├── README.md
+├── LICENSE
+├── Part - 1/                         Part I: tissue-structure reconstruction
+│   ├── pretraining/                  reconstruction pretraining (ResNet18, ViT-S, Swin-T)
+│   ├── main_evaluation/              feature extraction, linear probe, stain-aug baseline
+│   ├── analysis/                     probes, cross-dataset transfer, explainability
+│   └── archive/                      earlier stain-aug runs
+└── Part - 2/                         Part II: adjacency-aware contrastive pretraining + CCSM (47 notebooks)
+    ├── 01_Method1_Adjacency_Pretraining/
+    ├── 02_Method2_CCSM_Pretraining/
+    ├── 03_Evaluation_Frozen_Linear_Probe/
+    ├── 04_Ablations/
+    └── 05_Analysis/
+```
 
 ---
 
@@ -266,20 +287,27 @@ Stain-Aug baseline: end-to-end ResNet18, HED-space augmentation, 10 epochs per f
 
 ---
 
-## 11. Part II roadmap (planned)
+## 11. Part II (adjacency-aware contrastive pretraining and CCSM)
 
-| Track | Description | Status |
-|---|---|---|
-| Core extensions | Patient-bootstrap LOCO replicates, full probe battery on foundation models and Stain-Aug features, XAI beyond one sample per split | Planned |
-| Adversarial debiasing | Gradient-reversal centre-classifier head during reconstruction pretraining, to suppress the colour/centre shortcut | Planned (primary new contribution) |
-| Weight averaging | Cyclical weight averaging across checkpoints | Planned |
-| Robustness index | PathoROB-style robustness index alongside the probes | Planned |
-| Ablations | Masking probability, masked-patch cap, permutation count, debiasing weight (primary split only) | Planned |
-| Multi-scale reconstruction | 2x2 / 3x3 / 4x4 windows with a cross-scale consistency loss | Stretch goal, time-boxed |
+Part II is in [`Part - 2/`](Part%20-%202/README.md); Part I is unchanged. It asks whether a stronger self-supervised objective,
+applied as continued pretraining of existing backbones, gives more hospital-robust frozen features. Two methods are
+compared under the same frozen-probe protocol with three seeds (42/43/44) on six backbones (ResNet18, ViT-S, Swin-T,
+Kaiko, Lunit, Phikon):
 
-Part II work will be added in a separate `part2/` folder; Part I stays untouched.
+- **Method 1:** adjacency-aware contrastive pretraining (spatial neighbours as positives, a negative-masking radius), with a
+  matched SimCLR control.
+- **Method 2:** Cross-Centre Style Mixing (MixStyle across hospitals, optional Fourier amplitude swap) inside SimCLR.
 
----
+Headline result: adjacency beats its matched control on all six backbones (LOCO AUROC 0.9780 to 0.9935), CCSM helps
+only on some backbones, and combining the two is not additive. Ablations, label efficiency, probe battery,
+cross-dataset transfer and explainability for all six backbones are in `Part - 2/`.
+
+| Part I plan | Status in Part II |
+|---|---|
+| Training-seed replicates, full probe battery on foundation models, XAI beyond one sample | Done (three seeds, six backbones) |
+| Adversarial debiasing (gradient reversal) | Built, not reported in the paper |
+| Ablations | Done (radius, HED, Fourier-only, random partners, combined, label efficiency) |
+| Weight averaging, robustness index, multi-scale reconstruction | Not pursued |
 
 ## 12. Acknowledgements
 
